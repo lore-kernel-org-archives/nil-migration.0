@@ -1,69 +1,70 @@
-Received: from cyan.elm.relay.mailchannels.net (cyan.elm.relay.mailchannels.net [23.83.212.47])
+Received: from antelope.elm.relay.mailchannels.net (antelope.elm.relay.mailchannels.net [23.83.212.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F172C10E6
-	for <nil-migration@lists.linux.dev>; Fri,  3 Mar 2023 02:56:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2F610E7
+	for <nil-migration@lists.linux.dev>; Thu, 30 Mar 2023 22:22:43 +0000 (UTC)
 X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
 Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 79F328C0C25;
-	Fri,  3 Mar 2023 02:50:32 +0000 (UTC)
-Received: from pdx1-sub0-mail-a202.dreamhost.com (unknown [127.0.0.6])
+	by relay.mailchannels.net (Postfix) with ESMTP id E28485C10EC;
+	Thu, 30 Mar 2023 22:03:28 +0000 (UTC)
+Received: from pdx1-sub0-mail-a294.dreamhost.com (unknown [127.0.0.6])
 	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 0DF358C0C03;
-	Fri,  3 Mar 2023 02:50:32 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1677811832; a=rsa-sha256;
+	by relay.mailchannels.net (Postfix) with ESMTPA id 1DB9A5C0FBE;
+	Thu, 30 Mar 2023 22:03:28 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1680213808; a=rsa-sha256;
 	cv=none;
-	b=LFEn6wk+w5rBXbb2buVpc5K4GlF51Ls+ioYDjdSZsB25ZgYCKm+LOxIawYVyf0sAkCBQPQ
-	8dxPCh62WTDiJ3yKQuB72R3H5cK+uIdvC1U9lESUd8ladxNrNw9dvJqDljPQpqtQRsOUJi
-	IAVj4WmFftnjAGf5Ow6CaGN6D7xseETX1UO6hJ4Nrc4fw8sCddI+x/n2rV6D14zvPk4nj5
-	FGCdzFYKFPpos04N8wIxVzUhAJY3aBnEysVNBE3qcBfcIVdEM03iU/iaN8qYy7DtsB3vPr
-	6BPuvXc9QOxNJDUFjuuHEBn1rpjqMvc+gpzOcZ98/s+Sf2vBDrDxCbfCXujLfg==
+	b=XMaUq83XK1kmiBrVQCBLGELpfGgEqlBZ4POvnXd6Ic9+Js2rKrQc3JQHOgxDHzMMHdHZjX
+	IXkjGVQaJmfdt7UFBG8WX29gnsttJ7DNDYXln+SwfKnnOdnqQcC8gxMEQ4SOHANZq7r47O
+	nwZRfd1yzSIZ7crc/iOAg3oTcYfGePJTK5jYw/cmk6QCUHFfrkTn5aBy8BS2bzP34COw6x
+	dZJ/o6ocv79eaDc/C/sd9MjPdKaqBp5ShwvUeT8XoUWKSf3YKRhdWkN4XrKjuD3Y4juYmp
+	zsMdTvjxEM50ZgfD2OZ/9zrayPxlryo7esfT/43qDYioBchn9CkV0XxnYsoq1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
  d=mailchannels.net;
-	s=arc-2022; t=1677811832;
+	s=arc-2022; t=1680213808;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:dkim-signature;
-	bh=I/jP5Fvp/Spbm2MgYnjEqta3gDFhsde2uJZtxkuWYes=;
-	b=rkatmqe4ShFzCBVn7ujbf7Ej72+ak7cdyYdMFA5H5/p8+/8fQG/+CqsYy/yW954ya2pV/s
-	MHfdb+OkUS1lmutUriTNMFhrwJubFHE6Qsy+P7jY4rO7q6zn6g52VW6nyEFFII3EgOieDZ
-	vL7sjmloZA0mCX1t+r58WNFzoxAmbqwuDK1+HSBI9I1Tzxku24s9h1YJe4heSNg5l6ZRrg
-	eP2oXRm/tVcgq64wEP4vDtrxr/YXnSl1BVR92L7W2/9nWEguXXxmXyE8wcRxCxLHxdp4YL
-	Gdkn3NI6B8/A8lAyhjyvBlbypKkNjBR7WuWtzU/StdUTqz5DSNIXjDdDhkvyYA==
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=yPCzU6F6owMOhqlBeNEFKP1Ymsp3uChE2AkQ2JDym7k=;
+	b=NWs1za+wNjVq6VIWH/eoSppAKw8d4ZBSK6dEk/aghERKTYPh9ypBV9q+JYMxZxlLRcfqCR
+	pqqfDDB6+G1pNcGuFzN6Q8qArtQdgUlbXOidp67tDHAPAvT19OIO5NxCnGFCqzIOYpkVuc
+	6+CKAbMGTgNxX3DwhfVk7RhgdSttTjRl+eRS9Szq/VaYntF4iDSiJlmbjAkpTkyF5Q5N7g
+	dxx1uKXLK8xskkjdpaypCGZRreoJTHrbyEFCylc9/KtYjrZ/K1ognh45NCyOgSC2j+foLq
+	UNXaR+OtH7yC/vfk7eVD9Q2iF91EZBjQxSI47BxFVxI0W2IAOm+cMUCkRcRJkg==
 ARC-Authentication-Results: i=1;
-	rspamd-69778c65cd-7khj9;
+	rspamd-786cb55f77-rg9g4;
 	auth=pass smtp.auth=dreamhost smtp.mailfrom=dragan@stancevic.com
 X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
 X-MC-Relay: Neutral
 X-MailChannels-SenderId: dreamhost|x-authsender|dragan@stancevic.com
 X-MailChannels-Auth-Id: dreamhost
-X-Scare-Blushing: 133623385e6006bd_1677811832284_1385204117
-X-MC-Loop-Signature: 1677811832284:2868207408
-X-MC-Ingress-Time: 1677811832284
-Received: from pdx1-sub0-mail-a202.dreamhost.com (pop.dreamhost.com
+X-Print-Spicy: 279d1eea155a1243_1680213808495_2461694109
+X-MC-Loop-Signature: 1680213808495:2329669094
+X-MC-Ingress-Time: 1680213808495
+Received: from pdx1-sub0-mail-a294.dreamhost.com (pop.dreamhost.com
  [64.90.62.162])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.99.229.33 (trex/6.7.2);
-	Fri, 03 Mar 2023 02:50:32 +0000
+	by 100.101.8.122 (trex/6.7.2);
+	Thu, 30 Mar 2023 22:03:28 +0000
 Received: from [192.168.1.31] (99-160-136-52.lightspeed.nsvltn.sbcglobal.net [99.160.136.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
 	(Authenticated sender: dragan@stancevic.com)
-	by pdx1-sub0-mail-a202.dreamhost.com (Postfix) with ESMTPSA id 4PSXX748FFzBV;
-	Thu,  2 Mar 2023 18:50:31 -0800 (PST)
+	by pdx1-sub0-mail-a294.dreamhost.com (Postfix) with ESMTPSA id 4Pncqx3tpMzJJ;
+	Thu, 30 Mar 2023 15:03:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stancevic.com;
-	s=dreamhost; t=1677811831;
-	bh=I/jP5Fvp/Spbm2MgYnjEqta3gDFhsde2uJZtxkuWYes=;
-	h=Date:From:Subject:To:Content-Type:Content-Transfer-Encoding;
-	b=3ErEI+rMi9ZAPk06PRn6R+AeOAHWWbIhIjmBS0nnmDDTmtzO5gP2V6NgyLFkr+xN4
-	 ZOaebgkF+Bc70uuEzIfq6Y3yDA/1EmyKAJvtJZuP8tgxIAL2RCLh0n9f+4vPQsB9Jm
-	 dg+QN2D60tb7WSUGECVAgGtUsp2mEWopjso56RzUkiwhe1cmXfERQgyHJkoKqpFxcE
-	 tR7b3Ql/T9niGazB6ftwC+93oTkn/1VMks+9m6jpBOTptox3WHjQwogLY0Arc6tbqb
-	 0Ee+YK3/1UvB1PspsZ3IvhWjn2B+zebF4SeCJ8OyM4XpVOAxhN9W6XI3Yfbyq+y8t9
-	 oboBT7RAg/b0A==
-Message-ID: <f60afd35-f8ea-73ac-afc3-926eca633237@stancevic.com>
-Date: Thu, 2 Mar 2023 20:50:30 -0600
+	s=dreamhost; t=1680213807;
+	bh=yPCzU6F6owMOhqlBeNEFKP1Ymsp3uChE2AkQ2JDym7k=;
+	h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
+	b=hk403yWltsydDPdv3hVya3gI5wErNS+3eFchygO3ZCDDhUtXuy64l4J4TN6pAIzzp
+	 7JjTOwoeSQ3o+vMrVSWUD5d2vfd0KpHqIOgqh5RlitqZN9ZBq0qtguqIpWoDSaRBQw
+	 w6dbIsv4NUDDyoY5bU1TwJ0Jaq1hZ/D7JuS35V+EC51zKC2cZFC43K6bTP0bZyLaXz
+	 3ybyVSQ8y1xfKIEgBlFGf1Jiv+MboNE1jDrhF2T008wRHZSmsVfRdapWu7XQVW/yaG
+	 CYepfy9XIhzyS+RtjxIKyBHyhPNYmNx1SsBJ8eilgHjsRZrXHu00KoarGx135BkbNq
+	 miT3qQaFr40Ow==
+Message-ID: <362a9e19-fea5-e45a-3c22-3aa47e851aea@stancevic.com>
+Date: Thu, 30 Mar 2023 17:03:24 -0500
 Precedence: bulk
 X-Mailing-List: nil-migration@lists.linux.dev
 List-Id: <nil-migration.lists.linux.dev>
@@ -72,36 +73,61 @@ List-Unsubscribe: <mailto:nil-migration+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
+Subject: Re: FW: [LSF/MM/BPF TOPIC] SMDK inspired MM changes for CXL
 Content-Language: en-US
+To: Mike Rapoport <rppt@kernel.org>, Kyungsan Kim <ks0204.kim@samsung.com>
+Cc: dan.j.williams@intel.com, lsf-pc@lists.linux-foundation.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-cxl@vger.kernel.org, a.manzanares@samsung.com,
+ viacheslav.dubeyko@bytedance.com, ying.huang@intel.com,
+ nil-migration@lists.linux.dev
+References: <641b7b2117d02_1b98bb294cb@dwillia2-xfh.jf.intel.com.notmuch>
+ <CGME20230323105106epcas2p39ea8de619622376a4698db425c6a6fb3@epcas2p3.samsung.com>
+ <20230323105105.145783-1-ks0204.kim@samsung.com>
+ <ZB/yb9n6e/eNtNsf@kernel.org>
 From: Dragan Stancevic <dragan@stancevic.com>
-Subject: using CXL for VM migration
-To: nil-migration@lists.linux.dev, linux-cxl@vger.kernel.org
+In-Reply-To: <ZB/yb9n6e/eNtNsf@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hey everyone-
+On 3/26/23 02:21, Mike Rapoport wrote:
+> Hi,
+> 
+> [..] >> One problem we experienced was occured in the combination of 
+hot-remove and kerelspace allocation usecases.
+>> ZONE_NORMAL allows kernel context allocation, but it does not allow hot-remove because kernel resides all the time.
+>> ZONE_MOVABLE allows hot-remove due to the page migration, but it only allows userspace allocation.
+>> Alternatively, we allocated a kernel context out of ZONE_MOVABLE by adding GFP_MOVABLE flag.
+>> In case, oops and system hang has occasionally occured because ZONE_MOVABLE can be swapped.
+>> We resolved the issue using ZONE_EXMEM by allowing seletively choice of the two usecases.
+>> As you well know, among heterogeneous DRAM devices, CXL DRAM is the first PCIe basis device, which allows hot-pluggability, different RAS, and extended connectivity.
+>> So, we thought it could be a graceful approach adding a new zone and separately manage the new features.
+> 
+> This still does not describe what are the use cases that require having
+> kernel allocations on CXL.mem.
+> 
+> I believe it's important to start with explanation *why* it is important to
+> have kernel allocations on removable devices.
 
-I attended Jonathan Cameron's talk at LPC 2022 back in September and got 
-this idea to use CXL.mem to migrate VMs across physical hosts. Jonathan 
-and myself have had a couple of lengthy talks about this and then I got 
-buried under a ton of other work for months (Sorry Jonathan).
+Hi Mike,
 
-But anyhow, last chat we had there were several things still missing in 
-CXL code, both in qemu and the kernel.
+not speaking for Kyungsan here, but I am starting to tackle hypervisor 
+clustering and VM migration over cxl.mem [1].
 
-Jonathan had suggested opening this thread on the CXL mailing list, so 
-we could figure out and enumerate the missing parts in CXL code to 
-enable this type of VM migration. I'd like to collect a "TODO" list of 
-sorts, and help out with the missing components/features. So if you 
-don't mind, I am asking for help from CXL folks to help me identify the 
-missing features
+And in my mind, at least one reason that I can think of having kernel 
+allocations from cxl.mem devices is where you have multiple VH 
+connections sharing the memory [2]. Where for example you have a user 
+space application stored in cxl.mem, and then you want the metadata 
+about this process/application that the kernel keeps on one hypervisor 
+be "passed on" to another hypervisor. So basically the same way 
+processors in a single hypervisors cooperate on memory, you extend that 
+across processors that span over physical hypervisors. If that makes 
+sense...
 
-Jonathan's talk:
-https://lpc.events/event/16/contributions/1248/
 
-Intro to nil-migration
-http://nil-migration.org/
-
+[1] A high-level explanation is at http://nil-migration.org
+[2] Compute Express Link Specification r3.0, v1.0 8/1/22, Page 51, 
+figure 1-4, black color scheme circle(3) and bars.
 
 --
 Peace can only come as a natural consequence
