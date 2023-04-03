@@ -1,132 +1,98 @@
-Received: from aye.elm.relay.mailchannels.net (aye.elm.relay.mailchannels.net [23.83.212.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FC1D304
-	for <nil-migration@lists.linux.dev>; Thu, 30 Mar 2023 23:19:47 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 87705141D2C;
-	Thu, 30 Mar 2023 22:02:54 +0000 (UTC)
-Received: from pdx1-sub0-mail-a294.dreamhost.com (unknown [127.0.0.6])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id DF39414150F;
-	Thu, 30 Mar 2023 22:02:53 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1680213774; a=rsa-sha256;
-	cv=none;
-	b=GxihehXc/ZVXJRjYYYK5nA0/9U+zrV1T1grQRFO+pYHT0JyXFo4km0cdUFCG/ZLWlaS63R
-	3rRdTseinHqETPIzEpYPNN6mG6374ORYnRFIlPvc9uS8+3gFWWMOMiscnFgDNIFT868NN5
-	vQrl9ZqyNBr4vHo6Yct2OKVMxPV7FHXife/Zeisg2X2IOr2seuii7Q32j81xEAjpxK8OIv
-	45Iu+rJ0COusSkoikL4CcYpA6VGrF5t4Gca+1Y8Voh/x2XVpRXUgrmmNuL85BH5tN6L8lm
-	37uYFScl+YC66Yg4VMwClmT0M3Qv7sTvJaW8+fCBR3mdwp3o38/D9Nw77GtTVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1680213774;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=rDBoPi7u8Hdh3eFhndrLHZE31sc7ofYBzJWm4lYAkos=;
-	b=vovd/zqcchTZbqeOwGNoDYRKB7K5sEtM6adMw5qdRjTTOaYQpFfbgADu/Jjiq2+P8F1M13
-	aVS2XI3oDnCKsJhpRZgeQiyxAHwzG05Guq0wqWZsgeppQBjQN1KO0vMddKlJyKj7dZz/p1
-	l96xpNH8v5Oe28UckKsjOao4jYdvnMvO6Gu+UkdQf0E+RgjjkbJGL/WCUZnxUwn+e7IBCP
-	BQFl5M67be5D/3Sm6JabRRnN0XZCVVR/UYVoYBjWTG4WQgdCBSgmmOfTaUBs3xbFquSgVy
-	8izNbt9jvBRPLyEMx0+hwCtMOQAXzZNpgTFiXJrFw2Q9wCXJgVBk1msOwqzifA==
-ARC-Authentication-Results: i=1;
-	rspamd-786cb55f77-d9lht;
-	auth=pass smtp.auth=dreamhost smtp.mailfrom=dragan@stancevic.com
-X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dragan@stancevic.com
-X-MailChannels-Auth-Id: dreamhost
-X-Trail-Thread: 64ee653e6e8b3c6f_1680213774245_3606843821
-X-MC-Loop-Signature: 1680213774245:3282326279
-X-MC-Ingress-Time: 1680213774244
-Received: from pdx1-sub0-mail-a294.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.116.217.198 (trex/6.7.2);
-	Thu, 30 Mar 2023 22:02:54 +0000
-Received: from [192.168.1.31] (99-160-136-52.lightspeed.nsvltn.sbcglobal.net [99.160.136.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dragan@stancevic.com)
-	by pdx1-sub0-mail-a294.dreamhost.com (Postfix) with ESMTPSA id 4PncqH3jMPzBY;
-	Thu, 30 Mar 2023 15:02:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stancevic.com;
-	s=dreamhost; t=1680213773;
-	bh=rDBoPi7u8Hdh3eFhndrLHZE31sc7ofYBzJWm4lYAkos=;
-	h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
-	b=hufabQvnYtZ/bTfYroVuIVnOgUVGeVrgJwwLUC/E1om/WAvr35cc2MVPdjqBlmlbH
-	 5iXKY9ianqKhLFUaPMRkzbgeXt8EwNwUcRC4mLwmqoNXYqzBh6nGI9GyNx/qA2awNr
-	 OMGjHChH9QQp0Fp0T9NUj2wkDlQkpiFBduBzH57WN9eQIR+qwdHuICnI4JzhsSYb5l
-	 NNUlNJcqPs/ZpDwPZZxAu1gtw5EQY+2Kfw8F401ZdAXO1jSIszliO27AhLxkOE5RS/
-	 G61UZpI33yPBGoDqH/1x7dwnVwFgKErOOsmWhRO+nBG/EEAENeax92Wdog1oCC0e75
-	 BQzOdy7sV9xVg==
-Message-ID: <e4a8433a-fdca-e806-c7e9-750e81176228@stancevic.com>
-Date: Thu, 30 Mar 2023 17:02:49 -0500
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F19820F2
+	for <nil-migration@lists.linux.dev>; Mon,  3 Apr 2023 08:44:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F63C433EF;
+	Mon,  3 Apr 2023 08:44:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1680511469;
+	bh=rcNTkexBq3Q+uJyB3j6QpUz1kVSfgLh2+uusgW7/vik=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=athY3XDRKOfxSL5sGLnDLlGzre4UmRyr1xaYX9FpdWCv+iyibHSeO+JqhP5tfpvBp
+	 AsWg7CGZzp2vcQY4jZAbSmmtiZ92SK6bfW7/Bz0PQLeraEQQU483gjwuHdADaSJuoA
+	 kgI2jW9Lo7p56UaSfv2c1etvhGJ9kyL6o6GuFZXqekORJFwQRKzxyjUGu4olLqM0Yn
+	 kR9FM0/wQLmiCN3AnanGE6blZPurvXcCDzZcOeZc1qiin92YzvdOnt1n88FVpIF7/V
+	 Y591H2k+t4U4mLMIXhtBqBOVX4cL0QvUUvca9lmtX05Km670+t/EuWCVyJkkqBsxO2
+	 xkWojXuUymQ+w==
+Date: Mon, 3 Apr 2023 11:44:23 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Dragan Stancevic <dragan@stancevic.com>
+Cc: Kyungsan Kim <ks0204.kim@samsung.com>, dan.j.williams@intel.com,
+	lsf-pc@lists.linux-foundation.org, linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org, linux-cxl@vger.kernel.org,
+	a.manzanares@samsung.com, viacheslav.dubeyko@bytedance.com,
+	ying.huang@intel.com, nil-migration@lists.linux.dev
+Subject: Re: FW: [LSF/MM/BPF TOPIC] SMDK inspired MM changes for CXL
+Message-ID: <ZCqR55Ryrewmy6Bo@kernel.org>
+References: <641b7b2117d02_1b98bb294cb@dwillia2-xfh.jf.intel.com.notmuch>
+ <CGME20230323105106epcas2p39ea8de619622376a4698db425c6a6fb3@epcas2p3.samsung.com>
+ <20230323105105.145783-1-ks0204.kim@samsung.com>
+ <ZB/yb9n6e/eNtNsf@kernel.org>
+ <362a9e19-fea5-e45a-3c22-3aa47e851aea@stancevic.com>
 Precedence: bulk
 X-Mailing-List: nil-migration@lists.linux.dev
 List-Id: <nil-migration.lists.linux.dev>
 List-Subscribe: <mailto:nil-migration+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nil-migration+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [LSF/MM/BPF TOPIC] SMDK inspired MM changes for CXL
-Content-Language: en-US
-To: Kyungsan Kim <ks0204.kim@samsung.com>, lsf-pc@lists.linux-foundation.org
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-cxl@vger.kernel.org, a.manzanares@samsung.com,
- viacheslav.dubeyko@bytedance.com, nil-migration@lists.linux.dev
-References: <CGME20230221014114epcas2p1687db1d75765a8f9ed0b3495eab1154d@epcas2p1.samsung.com>
- <20230221014114.64888-1-ks0204.kim@samsung.com>
-From: Dragan Stancevic <dragan@stancevic.com>
-In-Reply-To: <20230221014114.64888-1-ks0204.kim@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <362a9e19-fea5-e45a-3c22-3aa47e851aea@stancevic.com>
 
-On 2/20/23 19:41, Kyungsan Kim wrote:
-> CXL is a promising technology that leads to fundamental changes in computing architecture.
-> To facilitate adoption and widespread of CXL memory, we are developing a memory tiering solution, called SMDK[1][2].
-> Using SMDK and CXL RAM device, our team has been working with industry and academic partners over last year.
-> Also, thanks to many researcher's effort, CXL adoption stage is gradually moving forward from basic enablement to real-world composite usecases.
-> At this moment, based on the researches and experiences gained working on SMDK, we would like to suggest a session at LSF/MM/BFP this year
-> to propose possible Linux MM changes with a brief of SMDK.
+Hi Dragan,
+
+On Thu, Mar 30, 2023 at 05:03:24PM -0500, Dragan Stancevic wrote:
+> On 3/26/23 02:21, Mike Rapoport wrote:
+> > Hi,
+> > 
+> > [..] >> One problem we experienced was occured in the combination of
+> hot-remove and kerelspace allocation usecases.
+> > > ZONE_NORMAL allows kernel context allocation, but it does not allow hot-remove because kernel resides all the time.
+> > > ZONE_MOVABLE allows hot-remove due to the page migration, but it only allows userspace allocation.
+> > > Alternatively, we allocated a kernel context out of ZONE_MOVABLE by adding GFP_MOVABLE flag.
+> > > In case, oops and system hang has occasionally occured because ZONE_MOVABLE can be swapped.
+> > > We resolved the issue using ZONE_EXMEM by allowing seletively choice of the two usecases.
+> > > As you well know, among heterogeneous DRAM devices, CXL DRAM is the first PCIe basis device, which allows hot-pluggability, different RAS, and extended connectivity.
+> > > So, we thought it could be a graceful approach adding a new zone and separately manage the new features.
+> > 
+> > This still does not describe what are the use cases that require having
+> > kernel allocations on CXL.mem.
+> > 
+> > I believe it's important to start with explanation *why* it is important to
+> > have kernel allocations on removable devices.
 > 
-> Adam Manzanares kindly adviced me that it is preferred to discuss implementation details on given problem and consensus at LSF/MM/BFP.
-> Considering the adoption stage of CXL technology, however, let me suggest a design level discussion on the two MM expansions of SMDK this year.
-> When we have design consensus with participants, we want to continue follow-up discussions with additional implementation details, hopefully.
+> Hi Mike,
 > 
->   
-> 1. A new zone, ZONE_EXMEM
-> We added ZONE_EXMEM to manage CXL RAM device(s), separated from ZONE_NORMAL for usual DRAM due to the three reasons below.
+> not speaking for Kyungsan here, but I am starting to tackle hypervisor
+> clustering and VM migration over cxl.mem [1].
+> 
+> And in my mind, at least one reason that I can think of having kernel
+> allocations from cxl.mem devices is where you have multiple VH connections
+> sharing the memory [2]. Where for example you have a user space application
+> stored in cxl.mem, and then you want the metadata about this
+> process/application that the kernel keeps on one hypervisor be "passed on"
+> to another hypervisor. So basically the same way processors in a single
+> hypervisors cooperate on memory, you extend that across processors that span
+> over physical hypervisors. If that makes sense...
 
-Hi Kyungsan-
+Let me reiterate to make sure I understand your example.
+If we focus on VM usecase, your suggestion is to store VM's memory and
+associated KVM structures on a CXL.mem device shared by several nodes.  
+Even putting aside the aspect of keeping KVM structures on presumably
+slower memory, what ZONE_EXMEM will provide that cannot be accomplished
+with having the cxl memory in a memoryless node and using that node to
+allocate VM metadata?
+ 
+> [1] A high-level explanation is at http://nil-migration.org
+> [2] Compute Express Link Specification r3.0, v1.0 8/1/22, Page 51, figure
+> 1-4, black color scheme circle(3) and bars.
+> 
+> --
+> Peace can only come as a natural consequence
+> of universal enlightenment -Dr. Nikola Tesla
+> 
 
-I read through your links and I am very interested in this 
-talk/discussion from the perspective of cloud/virtualization hypervisor 
-loads.
-
-The problem that I am starting to tackle is clustering of hypervisors 
-over cxl.mem for high availability of virtual machines. Or live 
-migration of virtual machines between hypervisors using cxl.mem [1].
-
-
-So I was wondering, with regards to the ZONE_XMEM, has any thought been 
-given to the shared memory across virtual hierarchies [2], where you 
-have cxl.mem access over cxl switches by multiple VH connections. It 
-seems to me that there might be a need for differentiation of direct 
-cxl.mem and switched cxl.mem. At least from the point of view where you 
-have multiple hypervisors sharing the memory over a switch. Where they 
-would potentially have to synchronize state/metadata about the memory.
-
-
-[1] A high-level explanation is at http://nil-migration.org
-[2] Compute Express Link Specification r3.0, v1.0 8/1/22, Page 51, 
-figure 1-4, black color scheme circle(3) and bars.
-
-
---
-Peace can only come as a natural consequence
-of universal enlightenment -Dr. Nikola Tesla
+-- 
+Sincerely yours,
+Mike.
