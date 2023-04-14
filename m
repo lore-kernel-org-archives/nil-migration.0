@@ -1,134 +1,207 @@
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
+Received: from eastern.birch.relay.mailchannels.net (eastern.birch.relay.mailchannels.net [23.83.209.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A420E20EE
-	for <nil-migration@lists.linux.dev>; Wed, 12 Apr 2023 16:34:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eG+HjrNyc4UfkIjW+VJ+TdD60PMI3ZKu2mxvBdxsQI9D2SaJMjD7oViQjd9oPXP1A4dnq9Y8nWEkND/BZBxJD2LKt8VvcRD2zM8FPHYGxFOsFdpZAkmSpmQ/WCEUUcgOIVjFa83sStFmeMBAz5lXnLYrrObSYTtZGv6IpmxoYQkW3bJ1q/o/LyXySAGT38MBLrRB1osk7lrM3+NPyjVzwPHPa9yzBI3S3EpQkXqSY9wiqODQ4hzBTgbfolX4qABhVUFEW15UUdPZXHTJv7K9ZukdmYHiP9ZZnsFLijk+6yLyo/+ULffxJVmxxpfxz2IdYL1RZXfX3fNoLiBZnYBnEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7hIj0nVhsMBQYcGr4RfUDhyMJkcxdJpv7I5gJkldxkQ=;
- b=ZurDFZ+V+b2QCP1GejIYXPPUHqYzdFeiWWhluAocEtvfKNdd4Uem7TJPvDoLXiFWEHUXdXGerX8yxoS7W9mX1s+5hCnk2JZXAMrTCuEj+2S7JAbV0PsfKFX4E4SK1z8MTfyH3n6yEnfc/+mxRY9ajJMJ+6gSbOFh/xcsbTNDNIEEiAsviyUn07niQcFjik38MQ243sZVGjiesTtfL+IMQMqlzNg5UEUUZyeSIPiSig35R8L5rPvJPsrrVy2Ik5o+m2s+3mXJgxAqt9ij7kJhwHkPeOA6GRPZKlb0rnEE6L1y3PB1XQtKKe/OQrE99O932UJbXtqiBM5t6Vf5yigXAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=memverge.com; dmarc=pass action=none header.from=memverge.com;
- dkim=pass header.d=memverge.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=memverge.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7hIj0nVhsMBQYcGr4RfUDhyMJkcxdJpv7I5gJkldxkQ=;
- b=aTetL5u3asytfz/xuoAytiFf2AROTYOnpV5skkM96zL2b+qGrn4UNyrAN4LNErneaWaPbsbITCqCEO5CJn0wgOG+u7aUu+xdtQlVK7Mw/LeHcduRGbRzjShWd8pmawPRheKCyo8P2DxX60E1nktNyU9PBXwFXu/ualu8lKMewvM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=memverge.com;
-Received: from SJ0PR17MB5512.namprd17.prod.outlook.com (2603:10b6:a03:394::19)
- by PH7PR17MB6108.namprd17.prod.outlook.com (2603:10b6:510:1f4::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28; Wed, 12 Apr
- 2023 16:34:41 +0000
-Received: from SJ0PR17MB5512.namprd17.prod.outlook.com
- ([fe80::7b97:62c3:4602:b47a]) by SJ0PR17MB5512.namprd17.prod.outlook.com
- ([fe80::7b97:62c3:4602:b47a%6]) with mapi id 15.20.6277.036; Wed, 12 Apr 2023
- 16:34:41 +0000
-Date: Wed, 12 Apr 2023 12:34:37 -0400
-From: Gregory Price <gregory.price@memverge.com>
-To: David Hildenbrand <david@redhat.com>
-Cc: "Huang, Ying" <ying.huang@intel.com>,
-	Dragan Stancevic <dragan@stancevic.com>,
-	lsf-pc@lists.linux-foundation.org, nil-migration@lists.linux.dev,
-	linux-cxl@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [LSF/MM/BPF TOPIC] BoF VM =?utf-8?Q?li?=
- =?utf-8?Q?ve_migration_over_CXL_memory=E2=80=8B?=
-Message-ID: <ZDbdnRE39Py4X4bT@memverge.com>
-References: <5d1156eb-02ae-a6cc-54bb-db3df3ca0597@stancevic.com>
- <ZDCv3lxLbquITy8M@memverge.com>
- <87v8i22abl.fsf@yhuang6-desk2.ccr.corp.intel.com>
- <ZDV+f7+QH5W/vXAt@memverge.com>
- <87bkjtzu7e.fsf@yhuang6-desk2.ccr.corp.intel.com>
- <f4f9eedf-c514-3388-29ad-dcb497a19303@redhat.com>
- <ZDbNoNN0nkzn4xe6@memverge.com>
- <efe5dad7-8e58-b416-8108-bb692c726302@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <efe5dad7-8e58-b416-8108-bb692c726302@redhat.com>
-X-ClientProxiedBy: SJ0PR05CA0086.namprd05.prod.outlook.com
- (2603:10b6:a03:332::31) To SJ0PR17MB5512.namprd17.prod.outlook.com
- (2603:10b6:a03:394::19)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4182630
+	for <nil-migration@lists.linux.dev>; Fri, 14 Apr 2023 03:32:41 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 94A5D141D6D;
+	Fri, 14 Apr 2023 03:26:35 +0000 (UTC)
+Received: from pdx1-sub0-mail-a207.dreamhost.com (unknown [127.0.0.6])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 1BBA2141B11;
+	Fri, 14 Apr 2023 03:26:35 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1681442795; a=rsa-sha256;
+	cv=none;
+	b=6KNglir6T0ES+Uvqhj2N2Ef/4WS+LQFOc/zQwhs2MsT/UXEj5kxf2FiILBydsO92wO6ZF/
+	Qx9PGMxALvthvLk4CjWzcwX4U/QPgFRVnIJIdgQpfTVF9GY/WqReWoyrB561a/yjzau3x+
+	FbLbXzh+Av9wvBKPTPaXJFy5Zq9JVAY0rSeWXgm0TA7sOK7QzIJ4OVYWVXZOBvyFwXymqI
+	9TmrZYuP2TtZ/eca+GpvC6ffT+0RqsMT4DXMIdBgDOIqzK17asiXBdgvIGDSEfYnrk+b/w
+	O64vY7VjdT76KqlRx2b7VVItGShjPeYCWEZcqFIlGshpp+Cbys6Kz04omzGb7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1681442795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=N/lTarvnkB+0LFxZohuEdHLcN5PE+7h/ShEQ5wITcGY=;
+	b=py4TEPo0cYZoIcRJj4bVfP7Lm/lNoItGYJLxgG1LnJ+QxxRdfFOSynTVgkxl8NiIW1m0+E
+	O7O6Id3P2q+oMcK77Voi5Rpl0b18fcaJ7ofCGKqWtPiOlwec7Je/NmwLjplT/lGlJ3xRmG
+	7xuaIg4zKYrq0Pw2SSGHjyOLvmCiU7jemId9Yze+P2UYAYaGRkOOQ99zHtHJHFmuc5fYpn
+	cuzQR+vp74ER2GfFycf3no1QKGMYoEN6UL0h8o07cMW3d49vDuzk9hxZq1vTReu14ctdAo
+	ar6MJ826W4C1CXxV2Payjup7OXw5i7MI2n/ShacaSmJq90+uyTgq/OGOYK6SUw==
+ARC-Authentication-Results: i=1;
+	rspamd-7f66b7b68c-gmsjp;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=dragan@stancevic.com
+X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dragan@stancevic.com
+X-MailChannels-Auth-Id: dreamhost
+X-Share-Descriptive: 0b3fb7156a1d06a0_1681442795401_3572895650
+X-MC-Loop-Signature: 1681442795401:783723915
+X-MC-Ingress-Time: 1681442795400
+Received: from pdx1-sub0-mail-a207.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.116.217.224 (trex/6.7.2);
+	Fri, 14 Apr 2023 03:26:35 +0000
+Received: from [192.168.1.31] (99-160-136-52.lightspeed.nsvltn.sbcglobal.net [99.160.136.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dragan@stancevic.com)
+	by pdx1-sub0-mail-a207.dreamhost.com (Postfix) with ESMTPSA id 4PyMLL2wvyz62;
+	Thu, 13 Apr 2023 20:26:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stancevic.com;
+	s=dreamhost; t=1681442794;
+	bh=N/lTarvnkB+0LFxZohuEdHLcN5PE+7h/ShEQ5wITcGY=;
+	h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
+	b=bAG70ljFyHiPKYjjlayy845llPtgrHPKz9/Mail6QfphBfZyLdVLk9z2Xnb+ldojf
+	 BT3iXbPXyCX38rasKSOMzV5xdlhwtXMwx436uQPDvKjjqEYba+Tbb9U3FonmrbX32v
+	 1aGnoDz/lg61ZhVdlUZu4tNzvc9InxdIvd0b2mX/BfQYw/F9DGlVWxjNJmIt+/S3c2
+	 wZegi8IXochwoqraIJIUMDtHPz9cqF/ZLDYXJL4kPnXQ5CI+OEVuGxUHch24lCVVnB
+	 SrhRy2/HGmLvMCHP45j3VB5Gmgw67y8uvJ4eFb7R+5eq2sCV1rVLHc0JjNbZ5IPsBp
+	 MG3GQPNP+bZLQ==
+Message-ID: <9e61e5ef-339e-b3d8-b3b2-884d79b31b98@stancevic.com>
+Date: Thu, 13 Apr 2023 22:26:33 -0500
 Precedence: bulk
 X-Mailing-List: nil-migration@lists.linux.dev
 List-Id: <nil-migration.lists.linux.dev>
 List-Subscribe: <mailto:nil-migration+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nil-migration+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR17MB5512:EE_|PH7PR17MB6108:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1847cb5-9f47-4678-6c06-08db3b73d0b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR17MB5512.namprd17.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(136003)(346002)(396003)(376002)(39850400004)(451199021)(38100700002)(2906002)(8936002)(44832011)(5660300002)(36756003)(86362001)(83380400001)(316002)(478600001)(54906003)(2616005)(6666004)(6486002)(6512007)(186003)(26005)(6506007)(66946007)(6916009)(4326008)(41300700001)(66476007)(66556008);DIR:OUT;SFP:1101;
-X-OriginatorOrg: memverge.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1847cb5-9f47-4678-6c06-08db3b73d0b0
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR17MB5512.namprd17.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 16:34:41.4277
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5c90cb59-37e7-4c81-9c07-00473d5fb682
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RJHDooXr8Rux98MNwajAGGRtRcLCZs7YqyiaprFxJp3oYabYTpDcOYYxnEaC0SimqhPi0r8XJOwj9gEx/WSESXhksN4deqOHUIG5tP3kXhU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR17MB6108
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: =?UTF-8?Q?Re=3a_=5bLSF/MM/BPF_TOPIC=5d_BoF_VM_live_migration_over_C?=
+ =?UTF-8?B?WEwgbWVtb3J54oCL?=
+Content-Language: en-US
+To: Shreyas Shah <shreyas.shah@elastics.cloud>,
+ "lsf-pc@lists.linux-foundation.org" <lsf-pc@lists.linux-foundation.org>
+Cc: "nil-migration@lists.linux.dev" <nil-migration@lists.linux.dev>,
+ "linux-cxl@vger.kernel.org" <linux-cxl@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>
+References: <5d1156eb-02ae-a6cc-54bb-db3df3ca0597@stancevic.com>
+ <IA1PR12MB623638228AD6EE30F336CDCDE8949@IA1PR12MB6236.namprd12.prod.outlook.com>
+ <2fb46081-b9d1-47af-b2e7-a0eb68797386@stancevic.com>
+ <IA1PR12MB623666337403D0D7B4B9D47DE89A9@IA1PR12MB6236.namprd12.prod.outlook.com>
+ <2ae1bdc2-60bf-e6a2-722a-ad42295a4929@stancevic.com>
+ <IA1PR12MB62363D430C430431DEBFD7C8E89A9@IA1PR12MB6236.namprd12.prod.outlook.com>
+From: Dragan Stancevic <dragan@stancevic.com>
+In-Reply-To: <IA1PR12MB62363D430C430431DEBFD7C8E89A9@IA1PR12MB6236.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Apr 12, 2023 at 05:50:55PM +0200, David Hildenbrand wrote:
+On 4/10/23 23:33, Shreyas Shah wrote:
+> Hi Dragon,
 > 
-> long-term: possibly forever, controlled by user space. In practice, anything
-> longer than ~10 seconds ( best guess :) ). There can be long-term pinnings
-> that are of very short duration, we just don't know what user space is up to
-> and when it will decide to unpin.
+> Do you all meet on Zoom or Teams weekly call?
 > 
-> Assume user space requests to trigger read/write of a user space page to a
-> file: the page is pinned, DMA is started, once DMA completes the page is
-> unpinned. Short-term. User space does not control how long the page remains
-> pinned.
-> 
-> In contrast:
-> 
-> Example #1: mapping VM guest memory into an IOMMU using vfio for PCI
-> passthrough requires pinning the pages. Until user space decides to unmap
-> the pages from the IOMMU, the pages will remain pinned. -> long-term
-> 
-> Example #2: mapping a user space address range into an IOMMU to repeatedly
-> perform RDMA using that address range requires pinning the pages. Until user
-> space decides to unregister that range, the pages remain pinned. ->
-> long-term
-> 
-> Example #3: registering a user space address range with io_uring as a fixed
-> buffer, such that io_uring OPS can avoid the page table walks by simply
-> using the pinned pages that were looked up once. As long as the fixed buffer
-> remains registered, the pages stay pinned. -> long-term
-> 
-> -- 
-> Thanks,
-> 
-> David / dhildenb
-> 
+> Maybe next time I can present if you have a slot.
 
-That pretty much precludes live migration from using CXL as a transport
-mechanism, since live migration would be a user-initiated process, you
-would need what amounts to an atomic move between hosts to ensure pages
-are not left pinned.
+Hi Shreyas-
 
-The more i'm reading the more i'm somewhat convinced CXL memory should
-not allow pinning at all.
+no, sorry there is no zoom call cadence at the time.
 
 
-I suppose you could implement a new RDMA feature where the remote host's
-CXL memory is temporarily mapped, data is migrated, and then that area
-is unmapped. Basically the exact same RDMA mechanism, but using memory
-instead of network. This would make the operation a kernel-controlled
-if pin/unpin is required.
 
+> Regards,
+> Shreyas
+> -----Original Message-----
+> From: Dragan Stancevic <dragan@stancevic.com>
+> Sent: Monday, April 10, 2023 6:33 PM
+> To: Shreyas Shah <shreyas.shah@elastics.cloud>; lsf-pc@lists.linux-foundation.org
+> Cc: nil-migration@lists.linux.dev; linux-cxl@vger.kernel.org; linux-mm@kvack.org
+> Subject: Re: [LSF/MM/BPF TOPIC] BoF VM live migration over CXL memory​
+> 
+> Hi Shreyas-
+> 
+> speaking strictly for myself, sounds interesting
+> 
+> 
+> On 4/10/23 20:17, Shreyas Shah wrote:
+>> Thank you, Dragon.
+>>
+>> Btw, we can demonstrate the VM live migration with our FPGA based CXL memory and our demonstration today. We are not application expert, looked at the last diagram in your link and we are confident we can achieve it.
+>>
+>> Will there be any interest from the group? I can present for 15 mins and Q&A.
+>>
+>> Regards,
+>> Shreyas
+>>
+>>
+>>
+>> -----Original Message-----
+>> From: Dragan Stancevic <dragan@stancevic.com>
+>> Sent: Monday, April 10, 2023 6:09 PM
+>> To: Shreyas Shah <shreyas.shah@elastics.cloud>;
+>> lsf-pc@lists.linux-foundation.org
+>> Cc: nil-migration@lists.linux.dev; linux-cxl@vger.kernel.org;
+>> linux-mm@kvack.org
+>> Subject: Re: [LSF/MM/BPF TOPIC] BoF VM live migration over CXL memory​
+>>
+>> Hi Shreyas-
+>>
+>> On 4/9/23 12:40, Shreyas Shah wrote:
+>>> Hi Dragon,
+>>>
+>>> The concept is great to time share the CXL attached memory across two NUMA nodes for live migration and create a cluster of VMs to increase the compute capacity.
+>>>
+>>> When and where is the BoF?
+>>
+>> It's a proposal sent under (CFP), it has not been accepted yet. The agenda is selected by the program committee based on interest. The current proposal is for LSF/MM/BPF summit[1] running May 8 - May 10th, but it's not happening if not approved by committee.
+>>
+>>
+>> [1]. https://events.linuxfoundation.org/lsfmm/
+>>
+>>
+>>>
+>>>
+>>> Regards,
+>>> Shreyas
+>>>     
+>>>
+>>> -----Original Message-----
+>>> From: Dragan Stancevic <dragan@stancevic.com>
+>>> Sent: Friday, April 7, 2023 2:06 PM
+>>> To: lsf-pc@lists.linux-foundation.org
+>>> Cc: nil-migration@lists.linux.dev; linux-cxl@vger.kernel.org;
+>>> linux-mm@kvack.org
+>>> Subject: [LSF/MM/BPF TOPIC] BoF VM live migration over CXL memory​
+>>>
+>>> Hi folks-
+>>>
+>>> if it's not too late for the schedule...
+>>>
+>>> I am starting to tackle VM live migration and hypervisor clustering over switched CXL memory[1][2], intended for cloud virtualization types of loads.
+>>>
+>>> I'd be interested in doing a small BoF session with some slides and get into a discussion/brainstorming with other people that deal with VM/LM cloud loads. Among other things to discuss would be page migrations over switched CXL memory, shared in-memory ABI to allow VM hand-off between hypervisors, etc...
+>>>
+>>> A few of us discussed some of this under the ZONE_XMEM thread, but I figured it might be better to start a separate thread.
+>>>
+>>> If there is interested, thank you.
+>>>
+>>>
+>>> [1]. High-level overview available at http://nil-migration.org/ [2].
+>>> Based on CXL spec 3.0
+>>>
+>>> --
+>>> Peace can only come as a natural consequence of universal
+>>> enlightenment -Dr. Nikola Tesla
+>>
+>> --
+>> --
+>> Peace can only come as a natural consequence of universal
+>> enlightenment -Dr. Nikola Tesla
+>>
+> 
+> --
+> --
+> Peace can only come as a natural consequence of universal enlightenment -Dr. Nikola Tesla
+> 
 
-Lots to talk about.
+-- 
+--
+Peace can only come as a natural consequence
+of universal enlightenment -Dr. Nikola Tesla
 
-~Gregory
