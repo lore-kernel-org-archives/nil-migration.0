@@ -1,178 +1,162 @@
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+Received: from caracal.birch.relay.mailchannels.net (caracal.birch.relay.mailchannels.net [23.83.209.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565351106
-	for <nil-migration@lists.linux.dev>; Fri, 14 Apr 2023 13:16:58 +0000 (UTC)
-Received: from lhrpeml500005.china.huawei.com (unknown [172.18.147.206])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4PycNX0tpxz6JFXG;
-	Fri, 14 Apr 2023 21:14:20 +0800 (CST)
-Received: from localhost (10.202.227.76) by lhrpeml500005.china.huawei.com
- (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 14 Apr
- 2023 14:16:48 +0100
-Date: Fri, 14 Apr 2023 14:16:47 +0100
-From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
-To: Dragan Stancevic <dragan@stancevic.com>
-CC: Gregory Price <gregory.price@memverge.com>,
-	<lsf-pc@lists.linux-foundation.org>, <nil-migration@lists.linux.dev>,
-	<linux-cxl@vger.kernel.org>, <linux-mm@kvack.org>
-Subject: Re: [LSF/MM/BPF TOPIC] BoF VM live migration over CXL memory
-Message-ID: <20230414141647.000075a6@Huawei.com>
-In-Reply-To: <253e7a73-be3c-44d4-1ca3-d0d060313517@stancevic.com>
-References: <5d1156eb-02ae-a6cc-54bb-db3df3ca0597@stancevic.com>
-	<ZDCv3lxLbquITy8M@memverge.com>
-	<9d22b56b-80ef-b36f-731b-4b3b588bc4bd@stancevic.com>
-	<ZDS8WH+yViVfsuMi@memverge.com>
-	<253e7a73-be3c-44d4-1ca3-d0d060313517@stancevic.com>
-Organization: Huawei Technologies Research and Development (UK) Ltd.
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DAF622
+	for <nil-migration@lists.linux.dev>; Tue,  2 May 2023 02:15:33 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id D95C55C18F8;
+	Mon,  1 May 2023 23:49:14 +0000 (UTC)
+Received: from pdx1-sub0-mail-a201.dreamhost.com (unknown [127.0.0.6])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 571295C1861;
+	Mon,  1 May 2023 23:49:14 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1682984954; a=rsa-sha256;
+	cv=none;
+	b=37giloz0JYXilvc37oiB+2CNif+YQyZHx3KlMOJyBg1nKaMK0EAFWwjX7SdEV2Zkfa/A5K
+	AiRi0Hnwx589Z9Ig/lI5FzJ5lEEQX9/4nivche88YCwJemwQOq/35KruutsJa7sUoVM+ge
+	o3cyFFLRj1hL+km60XQaemYre+OGQlRuGQ6lPv0vTB3rn3rR83l+XJhk2QsTGtopsIKvA5
+	5bMox3VKeMFg6qhiGxeU77AEmnphX96FIyZd/vqbetCKss1WW8Snc+xFEC14f29KmLnBap
+	CY5iJU0VNlw1FLn5SLLrpCwj6ugSgJz3RJpbs/UIAAgi1N4AYc9KkBBGTE3EJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1682984954;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=27vbAUGZ+hqc0WK3Yz+IRYFIhtDEndf2DlyXxyoHHWc=;
+	b=3v5xwVogpFHZXjiH1369Icjj49n+gwoiQDnGXCexNmF2dT2eCMLnU2zok/0+1i1O2Wcu9u
+	cAPRfJkHtFnyywGDb0ExJHulDp11q1hOwxJeepD3oqbOeaSHO/AuoyyXAgn1RgCvix92bk
+	bva/w9iOpOFXsFvPfj5Nz0waa1YfD3+lQO6rmRYAu/1lrQBwYNOoNw2HP+W+1HpbbIs+Y2
+	KpMHk944BfNfCcVSTy21ICYQu9i2VQGV6wowpZzekaEVkTSV+fwtXJGv5N6x+PKVHDo79P
+	pl+IViJw8iJsn7nOuGuEwJA+rOmrB3Yo1788nwRc7R41pCsmBObJkCpOzMqyQQ==
+ARC-Authentication-Results: i=1;
+	rspamd-7f66b7b68c-v7wvb;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=dragan@stancevic.com
+X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dragan@stancevic.com
+X-MailChannels-Auth-Id: dreamhost
+X-Inform-Cooing: 02015a924e94606e_1682984954677_1031524346
+X-MC-Loop-Signature: 1682984954677:1030373058
+X-MC-Ingress-Time: 1682984954677
+Received: from pdx1-sub0-mail-a201.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.116.217.236 (trex/6.7.2);
+	Mon, 01 May 2023 23:49:14 +0000
+Received: from [192.168.1.31] (99-160-136-52.lightspeed.nsvltn.sbcglobal.net [99.160.136.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dragan@stancevic.com)
+	by pdx1-sub0-mail-a201.dreamhost.com (Postfix) with ESMTPSA id 4Q9KgF4H5Rz60;
+	Mon,  1 May 2023 16:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stancevic.com;
+	s=dreamhost; t=1682984954;
+	bh=27vbAUGZ+hqc0WK3Yz+IRYFIhtDEndf2DlyXxyoHHWc=;
+	h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
+	b=OjKrVC1Wogff2+SQ+7JqVXSHIUFcou0SDq2RkmFMDBaQpCx8INyjwVG96NHLTSVYd
+	 9VpuwmwkYtIeTyZADCMEcMZd622Fn10vf9NYSqn03NObNASkhIMiK+0bImyYIXYbwj
+	 bQ/udSdgDdefm0YE0fPYAxosO0TETUcTL5rRmOqZA2tYJ6etAKOSxv9n/06zf/8r2u
+	 kDWFo11sMeLrzl9KY/hxfH60UVwwIfdv/xiEOlydLuL4Sjt18oHQozFCj65srvbWn8
+	 ih2cZ2ze/EZkWgOWL9jrDUsXwkTkRL0hhPjqiPmCCT4LLBcozywOrhcTI3qKdSt26N
+	 MFXnqapinxq7Q==
+Message-ID: <9130d889-7cfe-9040-d887-380be67410d2@stancevic.com>
+Date: Mon, 1 May 2023 18:49:12 -0500
 Precedence: bulk
 X-Mailing-List: nil-migration@lists.linux.dev
 List-Id: <nil-migration.lists.linux.dev>
 List-Subscribe: <mailto:nil-migration+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nil-migration+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: =?UTF-8?Q?Re=3a_=5bLSF/MM/BPF_TOPIC=5d_BoF_VM_live_migration_over_C?=
+ =?UTF-8?B?WEwgbWVtb3J54oCL?=
+Content-Language: en-US
+To: Dave Hansen <dave.hansen@intel.com>, lsf-pc@lists.linux-foundation.org
+Cc: nil-migration@lists.linux.dev, linux-cxl@vger.kernel.org,
+ linux-mm@kvack.org
+References: <5d1156eb-02ae-a6cc-54bb-db3df3ca0597@stancevic.com>
+ <14a601ea-8cf8-bb9c-a87a-63567c5aba5b@intel.com>
+From: Dragan Stancevic <dragan@stancevic.com>
+In-Reply-To: <14a601ea-8cf8-bb9c-a87a-63567c5aba5b@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.202.227.76]
-X-ClientProxiedBy: lhrpeml500002.china.huawei.com (7.191.160.78) To
- lhrpeml500005.china.huawei.com (7.191.163.240)
-X-CFilter-Loop: Reflected
 
-On Thu, 13 Apr 2023 22:32:48 -0500
-Dragan Stancevic <dragan@stancevic.com> wrote:
+Hi Dave-
 
-> Hi Gregory-
+sorry, looks like I've missed your email
+
+On 4/11/23 13:00, Dave Hansen wrote:
+> On 4/7/23 14:05, Dragan Stancevic wrote:
+>> I'd be interested in doing a small BoF session with some slides and get
+>> into a discussion/brainstorming with other people that deal with VM/LM
+>> cloud loads. Among other things to discuss would be page migrations over
+>> switched CXL memory, shared in-memory ABI to allow VM hand-off between
+>> hypervisors, etc...
 > 
+> How would 'struct page' or other kernel metadata be handled?
 > 
-> On 4/10/23 20:48, Gregory Price wrote:
-> > On Mon, Apr 10, 2023 at 07:56:01PM -0500, Dragan Stancevic wrote:  
-> >> Hi Gregory-
-> >>
-> >> On 4/7/23 19:05, Gregory Price wrote:  
-> >>> 3. This is changing the semantics of migration from a virtual memory
-> >>>      movement to a physical memory movement.  Typically you would expect
-> >>>      the RDMA process for live migration to work something like...
-> >>>
-> >>>      a) migration request arrives
-> >>>      b) source host informs destination host of size requirements
-> >>>      c) destination host allocations memory and passes a Virtual Address
-> >>>         back to source host
-> >>>      d) source host initates an RDMA from HostA-VA to HostB-VA
-> >>>      e) CPU task is migrated
-> >>>
-> >>>      Importantly, the allocation of memory by Host B handles the important
-> >>>      step of creating HVA->HPA mappings, and the Extended/Nested Page
-> >>>      Tables can simply be flushed and re-created after the VM is fully
-> >>>      migrated.
-> >>>
-> >>>      to long didn't read: live migration is a virtual address operation,
-> >>>      and node-migration is a PHYSICAL address operation, the virtual
-> >>>      addresses remain the same.
-> >>>
-> >>>      This is problematic, as it's changing the underlying semantics of the
-> >>>      migration operation.  
-> >>
-> >> Those are all valid points, but what if you don't need to recreate HVA->HPA
-> >> mappings? If I am understanding the CXL 3.0 spec correctly, then both
-> >> virtual addresses and physical addresses wouldn't have to change.
+> I assume you'd want a really big CXL memory device with as many hosts
+> connected to it as is feasible.  But, in order to hand the memory off
+> from one host to another, both would need to have metadata for it at
+> _some_ point.
 
-That's implementation defined if we are talking DCD for this.  I would suggest making
-it very clear which particular CXL options you are thinking of using.
+To be honest, I have not been thinking of this in terms of a "star" 
+connection topology. Where say each host in a rack connects to the same 
+memory device, I think I'd get bottle-necked on a singular device. Evac 
+of a few hypervisors simultaneously might get a bit dicey.
 
-A CXL 2.0 approach of binding LDs to different switch vPPB (virtual ports) probably doesn't
-have this problem, but has it's own limitations and is a much heavier weight thing
-to handle.
+I've been thinking of it more in terms of multiple memory devices per 
+rack, connected to various hypervisors to form a hypervisor traversal 
+graph[1]. For example in this graph, a VM would migrate across a single 
+hop, or a few hops to reach it's destination hypervisor. And for the 
+lack of better word, this would be your "migration namespace" to migrate 
+the VM across the rack. The critical connections in the graph are 
+hostfoo04 and hostfoo09, and those you'd use if you want to pop the VM 
+into a different "migration namespace", for example a different rack or 
+maybe even a pod.
 
-For DCD if we assuming sharing is used (I'd suggest ignoring other possibilities
-for now as there are architectural gaps that I'm not going into and the same
-issues will occur with them anyway)... 
-Then what you get if you share on multiple LDs presented to multiple hosts is
-a set of extents (each is a base + size, any number any size) that have sequence
-numbers.
+Of course, this is quite a ways out since there are no CXL 3.0 devices 
+yet. As a first step I would like to get to a point where I can emulate 
+this with qemu and just prototype various approaches, but starting with 
+a single emulated memory device and two hosts.
 
-The device may, typically because of fragmentation of the DPA space exposed to
-an LD (typically one of those from a device per host) decide to map what was created
-in a particular DPA extents pattern (mapped via nice linear decoders into Host PA space)
-in a different order and with different size extents.
+> So, do all hosts have metadata for the whole CXL memory device all the
+> time?  Or, would they create the metadata (hotplug) when a VM is
+> migrated in and destroy it (hot unplug) when a VM is migrated out?
 
-So in general you can't assume a spec compliant CXL type 3 device (probably a multihead
-device in initial deployments) will map anything to an particular location when moving
-the memory between hosts.
+To be honest I have not thought about hot plugging, but might be 
+something for me to keep in mind and ponder about it. And if you have 
+additional thoughts on this I'd love to hear them.
 
-So ultimately you'd need to translate between:
-Page tables on source + DPA extents info.
-
-and
-
-Page table needed on destination to land the parts of the DPA extents (via HDM deoders
-applying offsets etc) in the right place in GPA space so the guest gets the right
-mapping.
-
-So that will have some complexity and cost associated with it.  Not impossible but
-not a simple reuse of tables from source on the destination. 
-
-This is all PA to GPA translation though and in many cases I'd not expect that
-to be particularly dynamic - so it's a step before you do any actual migration
-hence I'm not sure it matters that might take a bit of maths.
+What I was thinking, and this may or may not be possible, or may be 
+possible only to a certain extent, but my preference would be to keep as 
+much of the metadata as possible on the memory device itself and have 
+the hypervisors cooperate through some kind of ownership mechanism.
 
 
-> Because
-> >> the fabric "virtualizes" host physical addresses and the translation is done
-> >> by the G-FAM/GFD that has the capability to translate multi-host HPAs to
-> >> it's internal DPAs. So if you have two hypervisors seeing device physical
-> >> address as the same physical address, that might work?
-> >>
-> >>  
-> > 
-> > Hm.  I hadn't considered the device side translation (decoders), though
-> > that's obviously a tool in the toolbox.  You still have to know how to
-> > slide ranges of data (which you mention below).  
-> 
-> Hmm, do you have any quick thoughts on that?
+> That gets back to the granularity question discussed elsewhere in the
+> thread.  How would the metadata allocation granularity interact with the
+> page allocation granularity?  How would fragmentation be avoided so that
+> hosts don't eat up all their RAM with unused metadata?
 
-HDM decoder programming is hard to do in a dynamic fashion (lots of limitations
-on what you can do due to ordering restrictions in the spec). I'd ignore it
-for this usecase beyond the fact that you get linear offsets from DPA to HPA
-that need to be incorporated in your thinking.
+Yeah, this is something I am still running through my head. Even if we 
+have this "ownership-cooperation", is this based on pages, what happens 
+to the sub-page allocations, do we move them through the buckets or do 
+we attach ownership to sub-page allocations too. In my ideal world, 
+you'd have two hypervisors cooperate over this memory as transparently 
+as CPUs in a single system collaborating across NUMA nodes. A lot to 
+think about, many problems to solve and a lot of work to do. I don't 
+have all the answers yet, but value all input & help
 
-> 
-> 
-> >>> The reference in this case is... the page tables.  You need to know how
-> >>> to interpret the data in the CXL memory region on the remote host, and
-> >>> that's a "relative page table translation" (to coin a phrase? I'm not
-> >>> sure how to best describe it).  
-> >>
-> >> right, coining phrases... I have been thinking of a "super-page" (for the
-> >> lack of a better word) a metadata region sitting on the switched CXL.mem
-> >> device that would allow hypervisors to synchronize on various aspects, such
-> >> as "relative page table translation", host is up, host is down, list of
-> >> peers, who owns what etc... In a perfect scenario, I would love to see the
-> >> hypervisors cooperating on switched CXL.mem device the same way cpus on
-> >> different numa nodes cooperate on memory in a single hypervisor. If either
-> >> host can allocate and schedule from this space then "NIL" aspect of
-> >> migration is "free".
-> >>
-> >>  
-> > 
-> > The core of the problem is still that each of the hosts has to agree on
-> > the location (physically) of this region of memory, which could be
-> > problematic unless you have very strong BIOS and/or kernel driver
-> > controls to ensure certain devices are guaranteed to be mapped into
-> > certain spots in the CFMW.  
-> 
-> Right, true. The way I am thinking of it is that this would be a part of 
-> data-center ops setup which at first pass would be a somewhat of a 
-> manual setup same way as other pre-OS related setup. But later on down 
-> the road perhaps this could be automated, either through some pre-agreed 
-> auto-ranges detection or similar, it's not unusual for dc ops to name 
-> hypervisors depending of where in dc/rack/etc they sit etc..
-> 
 
-You might be able to constrain particular devices to place nicely with such
-a model, but that is out of the scope of the specification and I'd suggest
-in Linux at least we'd write the code to deal with the general case then
-maybe have a 'fast path' if the stars align.
+[1]. https://nil-migration.org/VM-Graph.png
 
-Jonathan
+--
+Peace can only come as a natural consequence
+of universal enlightenment -Dr. Nikola Tesla
 
