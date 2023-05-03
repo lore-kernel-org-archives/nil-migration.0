@@ -1,70 +1,70 @@
-Received: from caracal.birch.relay.mailchannels.net (caracal.birch.relay.mailchannels.net [23.83.209.30])
+Received: from antelope.elm.relay.mailchannels.net (antelope.elm.relay.mailchannels.net [23.83.212.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DAF622
-	for <nil-migration@lists.linux.dev>; Tue,  2 May 2023 02:15:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212B4FC17
+	for <nil-migration@lists.linux.dev>; Wed,  3 May 2023 23:47:37 +0000 (UTC)
 X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
 Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id D95C55C18F8;
-	Mon,  1 May 2023 23:49:14 +0000 (UTC)
+	by relay.mailchannels.net (Postfix) with ESMTP id 38E01922D6E;
+	Wed,  3 May 2023 23:42:06 +0000 (UTC)
 Received: from pdx1-sub0-mail-a201.dreamhost.com (unknown [127.0.0.6])
 	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 571295C1861;
-	Mon,  1 May 2023 23:49:14 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1682984954; a=rsa-sha256;
+	by relay.mailchannels.net (Postfix) with ESMTPA id B1189922CAA;
+	Wed,  3 May 2023 23:42:05 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1683157325; a=rsa-sha256;
 	cv=none;
-	b=37giloz0JYXilvc37oiB+2CNif+YQyZHx3KlMOJyBg1nKaMK0EAFWwjX7SdEV2Zkfa/A5K
-	AiRi0Hnwx589Z9Ig/lI5FzJ5lEEQX9/4nivche88YCwJemwQOq/35KruutsJa7sUoVM+ge
-	o3cyFFLRj1hL+km60XQaemYre+OGQlRuGQ6lPv0vTB3rn3rR83l+XJhk2QsTGtopsIKvA5
-	5bMox3VKeMFg6qhiGxeU77AEmnphX96FIyZd/vqbetCKss1WW8Snc+xFEC14f29KmLnBap
-	CY5iJU0VNlw1FLn5SLLrpCwj6ugSgJz3RJpbs/UIAAgi1N4AYc9KkBBGTE3EJg==
+	b=Q5RB/NxJ//JFQatqH0DsojgM4t2BERhDKW39wpVyYMxKBCcrsRg5TfM6b7fVODdaO55Z4P
+	/MZojnq3e8CF9IgtDeF1I1QT7pQ+0Vo6cKTUQ+iQRHMp4y1IYlKQxFIxCnSrJ92HiJTQHQ
+	vVemJkEVaHwzPADdQJceMLF1CkBkmzZFLl1dOfwFmqVxYgOpUzXXy1CZMmhTydtCPGOGvn
+	+x4ebx0AvwZhOdR3yENH0LfYrgs8efQk2Nsb6Q+5Ul7zHsHuxo5RuB4IRB112YQ+ImsNFm
+	tchXUH3xRjgDf6t6qXcyUuW8ikpzvcMpeCZ/RiBAi3c15EFSX23bpvB3h3JAuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
  d=mailchannels.net;
-	s=arc-2022; t=1682984954;
+	s=arc-2022; t=1683157325;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=27vbAUGZ+hqc0WK3Yz+IRYFIhtDEndf2DlyXxyoHHWc=;
-	b=3v5xwVogpFHZXjiH1369Icjj49n+gwoiQDnGXCexNmF2dT2eCMLnU2zok/0+1i1O2Wcu9u
-	cAPRfJkHtFnyywGDb0ExJHulDp11q1hOwxJeepD3oqbOeaSHO/AuoyyXAgn1RgCvix92bk
-	bva/w9iOpOFXsFvPfj5Nz0waa1YfD3+lQO6rmRYAu/1lrQBwYNOoNw2HP+W+1HpbbIs+Y2
-	KpMHk944BfNfCcVSTy21ICYQu9i2VQGV6wowpZzekaEVkTSV+fwtXJGv5N6x+PKVHDo79P
-	pl+IViJw8iJsn7nOuGuEwJA+rOmrB3Yo1788nwRc7R41pCsmBObJkCpOzMqyQQ==
+	bh=6Fl+TE24h/cXTZYsl2ydKjUvZhBWezigFN426bbRXhc=;
+	b=uXAyjGRLAGEGRjCvXIsqUla3xWuF9o2TCOgqpjYkaB+IcO5iErz/hCYorA+Q22sQFSUxsI
+	qCEqyYmh8+byDKZsedeZeocpm5sWYC1Tztqhni2KTeDTXFfqt9u18rUiYX2A1IU+8XDskQ
+	agQrC8DK0t8LszY7TjzjHMAxiJLPy2I80cipB/pB0VgIwfMORyiZfyvWLYMpjKOYLTn77h
+	VPsWfOZE+IWUB5L/0bVxNeUg76xxxK3CSju2RwgfpDHUGUfxN04GvQ1RfhY2Zq61edDqrR
+	Th3lF2P2PzgRBrRJWuxWe8EnTAoYiZb8of2V3xiPsTR7z9rsf86y6an84lsYtQ==
 ARC-Authentication-Results: i=1;
-	rspamd-7f66b7b68c-v7wvb;
+	rspamd-6bfb6b59b5-85htg;
 	auth=pass smtp.auth=dreamhost smtp.mailfrom=dragan@stancevic.com
 X-Sender-Id: dreamhost|x-authsender|dragan@stancevic.com
 X-MC-Relay: Neutral
 X-MailChannels-SenderId: dreamhost|x-authsender|dragan@stancevic.com
 X-MailChannels-Auth-Id: dreamhost
-X-Inform-Cooing: 02015a924e94606e_1682984954677_1031524346
-X-MC-Loop-Signature: 1682984954677:1030373058
-X-MC-Ingress-Time: 1682984954677
+X-Whispering-Tank: 23fd55f034b3cb78_1683157326028_3312701159
+X-MC-Loop-Signature: 1683157326028:1094234701
+X-MC-Ingress-Time: 1683157326028
 Received: from pdx1-sub0-mail-a201.dreamhost.com (pop.dreamhost.com
  [64.90.62.162])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.116.217.236 (trex/6.7.2);
-	Mon, 01 May 2023 23:49:14 +0000
+	by 100.125.42.179 (trex/6.7.2);
+	Wed, 03 May 2023 23:42:06 +0000
 Received: from [192.168.1.31] (99-160-136-52.lightspeed.nsvltn.sbcglobal.net [99.160.136.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: dragan@stancevic.com)
-	by pdx1-sub0-mail-a201.dreamhost.com (Postfix) with ESMTPSA id 4Q9KgF4H5Rz60;
-	Mon,  1 May 2023 16:49:13 -0700 (PDT)
+	by pdx1-sub0-mail-a201.dreamhost.com (Postfix) with ESMTPSA id 4QBYQ45pzxz21;
+	Wed,  3 May 2023 16:42:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stancevic.com;
-	s=dreamhost; t=1682984954;
-	bh=27vbAUGZ+hqc0WK3Yz+IRYFIhtDEndf2DlyXxyoHHWc=;
+	s=dreamhost; t=1683157325;
+	bh=6Fl+TE24h/cXTZYsl2ydKjUvZhBWezigFN426bbRXhc=;
 	h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
-	b=OjKrVC1Wogff2+SQ+7JqVXSHIUFcou0SDq2RkmFMDBaQpCx8INyjwVG96NHLTSVYd
-	 9VpuwmwkYtIeTyZADCMEcMZd622Fn10vf9NYSqn03NObNASkhIMiK+0bImyYIXYbwj
-	 bQ/udSdgDdefm0YE0fPYAxosO0TETUcTL5rRmOqZA2tYJ6etAKOSxv9n/06zf/8r2u
-	 kDWFo11sMeLrzl9KY/hxfH60UVwwIfdv/xiEOlydLuL4Sjt18oHQozFCj65srvbWn8
-	 ih2cZ2ze/EZkWgOWL9jrDUsXwkTkRL0hhPjqiPmCCT4LLBcozywOrhcTI3qKdSt26N
-	 MFXnqapinxq7Q==
-Message-ID: <9130d889-7cfe-9040-d887-380be67410d2@stancevic.com>
-Date: Mon, 1 May 2023 18:49:12 -0500
+	b=cecviFhK3VbN0Qy3IojLvL2kSa+CAO8QY93elN0VWNWg4Kmp6BfB78ihKqQCZLmOk
+	 4SiTzTMWwmoB7gSwbU/ArZxrNUgCF18ZPmYgUqVL+PIunQdEjVZxC7zXO4q04OrqSC
+	 LISJcIgIp2vw6nKih28PwtcZ36GyxMgzpzXbf9+Z5SoBm/6Fl6atnTPpORWekG3w6+
+	 qBC1GiOK9MNiXKTqY1a/sofcajDGZQY9btO/ScW2nPV6YY9HUOWvopocpYbrx/oSSd
+	 huCOybR+4TtMYZCOE9Y0mQP4s+64H8V2ccHpKwHkYvVbgN577sTdeG2L2rOH/2aiU8
+	 AyOLZeQY0vekg==
+Message-ID: <43e81295-3ef3-e10d-4af8-cf53f06c7120@stancevic.com>
+Date: Wed, 3 May 2023 18:42:03 -0500
 Precedence: bulk
 X-Mailing-List: nil-migration@lists.linux.dev
 List-Id: <nil-migration.lists.linux.dev>
@@ -76,85 +76,128 @@ User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
 Subject: =?UTF-8?Q?Re=3a_=5bLSF/MM/BPF_TOPIC=5d_BoF_VM_live_migration_over_C?=
  =?UTF-8?B?WEwgbWVtb3J54oCL?=
 Content-Language: en-US
-To: Dave Hansen <dave.hansen@intel.com>, lsf-pc@lists.linux-foundation.org
-Cc: nil-migration@lists.linux.dev, linux-cxl@vger.kernel.org,
- linux-mm@kvack.org
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+ David Hildenbrand <david@redhat.com>, "Huang, Ying" <ying.huang@intel.com>,
+ Gregory Price <gregory.price@memverge.com>
+Cc: lsf-pc@lists.linux-foundation.org, nil-migration@lists.linux.dev,
+ linux-cxl@vger.kernel.org, linux-mm@kvack.org
 References: <5d1156eb-02ae-a6cc-54bb-db3df3ca0597@stancevic.com>
- <14a601ea-8cf8-bb9c-a87a-63567c5aba5b@intel.com>
+ <ZDCv3lxLbquITy8M@memverge.com>
+ <87v8i22abl.fsf@yhuang6-desk2.ccr.corp.intel.com>
+ <ZDV+f7+QH5W/vXAt@memverge.com>
+ <87bkjtzu7e.fsf@yhuang6-desk2.ccr.corp.intel.com>
+ <f4f9eedf-c514-3388-29ad-dcb497a19303@redhat.com>
+ <ec7399fbd74d43a06edc8b344fccddbdef44a101.camel@HansenPartnership.com>
 From: Dragan Stancevic <dragan@stancevic.com>
-In-Reply-To: <14a601ea-8cf8-bb9c-a87a-63567c5aba5b@intel.com>
+In-Reply-To: <ec7399fbd74d43a06edc8b344fccddbdef44a101.camel@HansenPartnership.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Dave-
+Hi James, sorry looks like I missed your email...
 
-sorry, looks like I've missed your email
 
-On 4/11/23 13:00, Dave Hansen wrote:
-> On 4/7/23 14:05, Dragan Stancevic wrote:
->> I'd be interested in doing a small BoF session with some slides and get
->> into a discussion/brainstorming with other people that deal with VM/LM
->> cloud loads. Among other things to discuss would be page migrations over
->> switched CXL memory, shared in-memory ABI to allow VM hand-off between
->> hypervisors, etc...
+On 4/12/23 10:15, James Bottomley wrote:
+> On Wed, 2023-04-12 at 10:38 +0200, David Hildenbrand wrote:
+>> On 12.04.23 04:54, Huang, Ying wrote:
+>>> Gregory Price <gregory.price@memverge.com> writes:
+> [...]
+>>>> That feels like a hack/bodge rather than a proper solution to me.
+>>>>
+>>>> Maybe this is an affirmative argument for the creation of an
+>>>> EXMEM zone.
+>>>
+>>> Let's start with requirements.  What is the requirements for a new
+>>> zone type?
+>>
+>> I'm stills scratching my head regarding this. I keep hearing all
+>> different kind of statements that just add more confusions "we want
+>> it to be hotunpluggable" "we want to allow for long-term pinning
+>> memory" "but we still want it to be movable" "we want to place some
+>> unmovable allocations on it". Huh?
 > 
-> How would 'struct page' or other kernel metadata be handled?
+> This is the essential question about CXL memory itself: what would its
+> killer app be?  The CXL people (or at least the ones I've talked to)
+> don't exactly know.
+
+
+I hope it's not something I've said, I'm not claiming VM migration or 
+hypervisor clustering is the killer app for CXL. I would never claim 
+that. And I'm not one of the CXL folks. You can chuck me into the "CXL 
+enthusiasts" bucket.... For a bit of context, I'm one of the 
+co-authors/architects of VMware's clustered filesystem[1] and I've 
+worked on live VM migration as far back as 2003 on the original ESX 
+server. Back in the day, we introduced the concept of VM live migration 
+into the x86 data-center parlance with a combination of a process 
+monitor and a clustered filesystem. The basic mechanism we put forward 
+at the time was: pre-copy, quiesce, post-copy, un-quiesce. And I think 
+most hypervisor after which added live migration are using loosely the 
+same basic principles, iirc xen introduced LM 4 years later in 2007 and 
+KVM about the same time or perhaps a year later. Anyway, the point that 
+I am trying to get to is, it bugged me 20 years ago that we quiesced, 
+and it bugs me today :) I think 20 years ago, quiescing was an 
+acceptable compromise because we couldn't solve it technologically. 
+Maybe 20-25 years later, we've reached a point we can solve it 
+technologically. I don't know, but the problem interests me enough to try.
+
+
+>  Within IBM I've seen lots of ideas but no actual
+> concrete applications.  Given the rates at which memory density in
+> systems is increasing, I'm a bit dubious of the extensible system pool
+> argument.   Providing extensible memory to VMs sounds a bit more
+> plausible, particularly as it solves a big part of the local overcommit
+> problem (although you still have a global one).  I'm not really sure I
+> buy the VM migration use case: iterative transfer works fine with small
+> down times so transferring memory seems to be the least of problems
+> with the VM migration use case
+
+We do approximately 2.5 Million live migrations per year. Some 
+migrations take less than a second, some take roughly a second, and 
+others on very noisy VMs can take several seconds. Whatever that average 
+is, let's say 1 second per live migration, that's cumulatively roughly 
+28 days of steal lost to migration per year. As you probably know, live 
+migrations are essential for de-fragmenting hypervisors/de-stranding 
+resources and from my perspective, I'd like to see them happen more 
+often with a smaller customer impact.
+
+
+> (it's mostly about problems with attached devices).
+
+That is purely virtualization load type dependent. Maybe for the cloud 
+you're running devices are a problem(I'm guessing here). For us this is 
+a non existent problem. We serve approximately 600,000 customers and 
+don't do forms of pass-through so it's literally a non issue. What I am 
+starting to tackle with nil-migration is to be able to migrate live and 
+executing memory, instead of frozen memory. Which should especially help 
+with noisy VMs, and in my experience customers of noisy VMs are more 
+likely to notice steal and complain about steal. I understand everyone 
+has their own workloads, and the devices problem will be solved in it's 
+own right, but it's out of scope for what I am tackling with 
+nil-migration. My main focus at this time is memory and context migration.
+
+
+<  CXL 3.0 is adding sharing primitives for memory so
+> now we have to ask if there are any multi-node shared memory use cases
+> for this, but most of us have already been burned by multi-node shared
+> clusters once in our career and are a bit leery of a second go around.
+
+Chatting with you at the last LPC, and judging by the combined gray hair 
+between us, I'll venture to guess we've both fallen off the proverbial 
+bike, many times. It's never stopped me from getting back on. Issue 
+interest me enough to try.
+
+If you don't mind me asking, what clustering did you work on? Maybe I am 
+familiar with it
+
+
 > 
-> I assume you'd want a really big CXL memory device with as many hosts
-> connected to it as is feasible.  But, in order to hand the memory off
-> from one host to another, both would need to have metadata for it at
-> _some_ point.
-
-To be honest, I have not been thinking of this in terms of a "star" 
-connection topology. Where say each host in a rack connects to the same 
-memory device, I think I'd get bottle-necked on a singular device. Evac 
-of a few hypervisors simultaneously might get a bit dicey.
-
-I've been thinking of it more in terms of multiple memory devices per 
-rack, connected to various hypervisors to form a hypervisor traversal 
-graph[1]. For example in this graph, a VM would migrate across a single 
-hop, or a few hops to reach it's destination hypervisor. And for the 
-lack of better word, this would be your "migration namespace" to migrate 
-the VM across the rack. The critical connections in the graph are 
-hostfoo04 and hostfoo09, and those you'd use if you want to pop the VM 
-into a different "migration namespace", for example a different rack or 
-maybe even a pod.
-
-Of course, this is quite a ways out since there are no CXL 3.0 devices 
-yet. As a first step I would like to get to a point where I can emulate 
-this with qemu and just prototype various approaches, but starting with 
-a single emulated memory device and two hosts.
-
-> So, do all hosts have metadata for the whole CXL memory device all the
-> time?  Or, would they create the metadata (hotplug) when a VM is
-> migrated in and destroy it (hot unplug) when a VM is migrated out?
-
-To be honest I have not thought about hot plugging, but might be 
-something for me to keep in mind and ponder about it. And if you have 
-additional thoughts on this I'd love to hear them.
-
-What I was thinking, and this may or may not be possible, or may be 
-possible only to a certain extent, but my preference would be to keep as 
-much of the metadata as possible on the memory device itself and have 
-the hypervisors cooperate through some kind of ownership mechanism.
+> Is there a use case I left out (or needs expanding)?
+> 
+> James
+> 
 
 
-> That gets back to the granularity question discussed elsewhere in the
-> thread.  How would the metadata allocation granularity interact with the
-> page allocation granularity?  How would fragmentation be avoided so that
-> hosts don't eat up all their RAM with unused metadata?
 
-Yeah, this is something I am still running through my head. Even if we 
-have this "ownership-cooperation", is this based on pages, what happens 
-to the sub-page allocations, do we move them through the buckets or do 
-we attach ownership to sub-page allocations too. In my ideal world, 
-you'd have two hypervisors cooperate over this memory as transparently 
-as CPUs in a single system collaborating across NUMA nodes. A lot to 
-think about, many problems to solve and a lot of work to do. I don't 
-have all the answers yet, but value all input & help
-
-
-[1]. https://nil-migration.org/VM-Graph.png
+[1]. https://en.wikipedia.org/wiki/VMware_VMFS
 
 --
 Peace can only come as a natural consequence
